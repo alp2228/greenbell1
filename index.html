@@ -1,153 +1,127 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>グリーンベル黒姫高原 予約サイト</title>
-  <style>
-    :root{
-      --bg:#0f1724; /* deep slate */
-      --accent:#7dd3fc; /* light cyan */
-      --muted:#94a3b8;
-      --card:#152233;
-      --glass: rgba(255,255,255,0.04);
-      --maxwidth:1100px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Meiryo', sans-serif;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #071022 100%);color:#e6eef6}
-
-    .wrap{max-width:var(--maxwidth);margin:0 auto;padding:32px}
-
-    .hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-    .hero__bg{position:absolute;inset:0;background-image:linear-gradient(180deg, rgba(7,16,34,0.6), rgba(3,6,12,0.6));pointer-events:none}
-    .title{
-      font-size:clamp(36px, 10vw, 96px);
-      font-weight:800;letter-spacing:0.02em;text-align:center;line-height:0.9;
-      text-transform:uppercase;color:transparent;
-      -webkit-text-stroke:2px rgba(125,211,252,0.95);
-      text-shadow:0 10px 30px rgba(7,20,34,0.7);
-    }
-    .subtitle{position:absolute;bottom:36px;left:24px;color:var(--muted);font-size:14px}
-
-    main{scroll-behavior:smooth}
-    section.unit{min-height:80vh;padding:80px 24px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;border-bottom:1px solid rgba(255,255,255,0.03)}
-    section.unit:nth-child(even){background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
-
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), var(--glass));padding:28px;border-radius:18px;box-shadow:0 10px 30px rgba(2,6,12,0.6)}
-    .unit-visual{height:320px;border-radius:12px;overflow:hidden;background-size:cover;background-position:center;box-shadow:inset 0 -20px 40px rgba(0,0,0,0.4)}
-    .unit-title{font-size:28px;font-weight:700;margin:0 0 8px}
-    .unit-sub{color:var(--muted);margin-bottom:14px}
-    .features{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-    .tag{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-size:13px}
-
-    .curtain{position:relative;overflow:hidden}
-    .curtain::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg, #071022 0%, transparent 30%);transform:translateY(0%);transition:transform 1s cubic-bezier(.2,.9,.2,1);z-index:2}
-    .curtain.revealed::before{transform:translateY(-105%)}
-    .unit-info{opacity:0;transform:translateY(18px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1)}
-    .curtain.revealed .unit-info{opacity:1;transform:translateY(0)}
-
-    .btn{display:inline-block;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,var(--accent),#60a5fa);color:#06202a;font-weight:700;border:none;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.5);text-decoration:none}
-
-    footer{padding:40px 24px;background:linear-gradient(180deg, transparent, rgba(0,0,0,0.2));color:var(--muted)}
-    .company{max-width:var(--maxwidth);margin:0 auto;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
-    .company .col{flex:1;min-width:220px}
-
-    @media (max-width:900px){
-      section.unit{grid-template-columns:1fr;min-height:100vh;padding:48px 18px}
-      .unit-visual{height:220px}
-      .title{font-size:56px}
-    }
-  </style>
-</head>
-<body>
-
-  <header class="hero">
-    <div class="hero__bg"></div>
-    <div class="wrap">
-      <div class="title">グリーンベル<br>黒姫高原</div>
-      <div class="subtitle">自然と静寂のリゾート — 各号棟のご案内とご予約</div>
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | My project (8)</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-logo-title-footer"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">My project (8)</div>
+      </div>
     </div>
-  </header>
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
 
-  <main>
-    <!-- 各ユニット -->
-    <section id="A1" class="unit curtain" data-unit="A1">
-      <div class="card unit-info">
-        <h2 class="unit-title">A1 - ファミリー向けコテージ</h2>
-        <div class="unit-sub">広々としたリビングと薪ストーブ。最大6名まで。</div>
-        <div class="features">
-          <span class="tag">6名</span>
-          <span class="tag">薪ストーブ</span>
-          <span class="tag">キッチン完備</span>
-          <span class="tag">バルコニー</span>
-        </div>
-        <p>森に面した静かな棟。大きな窓から黒姫の四季を満喫できます。</p>
-        <div style="margin-top:18px">
-          <a class="btn" href="https://minpaak.itigo.jp/jp/mkn09061005/cgi/reserve/dispplan.cgi?pid=222" target="_blank">予約する</a>
-        </div>
-      </div>
-      <div class="unit-visual" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1400&q=60')" aria-hidden="true"></div>
-    </section>
-
-    <!-- 他の棟も同じように修正 -->
-    <!-- 例: -->
-    <section id="A2" class="unit curtain" data-unit="A2">
-      <div class="card unit-info">
-        <h2 class="unit-title">A2 - カップル・ペア向け</h2>
-        <div class="unit-sub">小さな暖炉と景色の良い寝室。2名向け。</div>
-        <div class="features">
-          <span class="tag">2名</span>
-          <span class="tag">温泉近し</span>
-          <span class="tag">リラックスルーム</span>
-        </div>
-        <p>静かな丘に立つロマンティックな棟。夜空を見上げるバルコニー付き。</p>
-        <div style="margin-top:18px">
-          <a class="btn" href="https://minpaak.itigo.jp/jp/mkn09061005/cgi/reserve/dispplan.cgi?pid=222" target="_blank">予約する</a>
-        </div>
-      </div>
-      <div class="unit-visual" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=60')" aria-hidden="true"></div>
-    </section>
-
-    <!-- ... B, C, D, E, F も同じリンクに変更 ... -->
-
-    <footer>
-      <div class="company">
-        <div class="col">
-          <h3 style="margin-top:0">会社概要</h3>
-          <p>株式会社グリーンベル黒姫高原<br>所在地: 長野県上水内郡信濃町黒姫高原1234</p>
-          <p>営業時間: 24時間</p>
-        </div>
-        <div class="col">
-          <h4>アクセス</h4>
-          <p>最寄り駅: 黒姫駅（車で約20分） / 長野駅（車で約60分）</p>
-          <h4>注意事項</h4>
-          <ul style="margin:8px 0 0 18px;color:var(--muted)">
-            <li>チェックイン 15:00〜 / チェックアウト 〜11:00</li>
-            <li>ペット利用は事前申請が必要です</li>
-            <li>キャンセルポリシーは予約時に案内します</li>
-          </ul>
-        </div>
-        <div class="col">
-          <h4>SNS</h4>
-          <p>Instagram / Facebook / X（準備中）</p>
-          <h4>お問い合わせ</h4>
-          <p><a href="mailto:info@greenbell-kurohime.jp" style="color:var(--accent);text-decoration:none">info@greenbell-kurohime.jp</a></p>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <script>
-    // IntersectionObserver for curtain reveal
-    const observer = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add('revealed')
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        var warningBanner = document.querySelector("#unity-warning");
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
         }
-      })
-    },{threshold:0.25});
-    document.querySelectorAll('.curtain').forEach(s=>observer.observe(s));
-  </script>
-</body>
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/unity.test_bild.loader.js";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/unity.test_bild.data.br",
+        frameworkUrl: buildUrl + "/unity.test_bild.framework.js.br",
+        codeUrl: buildUrl + "/unity.test_bild.wasm.br",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "My project (8)",
+        productVersion: "0.1.0",
+        showBanner: unityShowBanner,
+      };
+
+      // By default, Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      // If you would like all file writes inside Unity Application.persistentDataPath
+      // directory to automatically persist so that the contents are remembered when
+      // the user revisits the site the next time, uncomment the following line:
+      // config.autoSyncPersistentDataPath = true;
+      // This autosyncing is currently not the default behavior to avoid regressing
+      // existing user projects that might rely on the earlier manual
+      // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
+      // expected to change.
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        document.querySelector("#unity-container").className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+
+      } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+
+      document.querySelector("#unity-loading-bar").style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+              }).then((unityInstance) => {
+                document.querySelector("#unity-loading-bar").style.display = "none";
+                document.querySelector("#unity-fullscreen-button").onclick = () => {
+                  unityInstance.SetFullscreen(1);
+                };
+
+              }).catch((message) => {
+                alert(message);
+              });
+            };
+
+      document.body.appendChild(script);
+
+    </script>
+  </body>
 </html>
